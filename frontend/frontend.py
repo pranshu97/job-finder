@@ -14,7 +14,7 @@ def make_clickable(text, link):
 
 @st.cache(show_spinner=False)
 def load_data(skill, loc, yoe):
-    url = f'http://127.0.0.1:2765/?skill={skill}&location={loc}&yoe={yoe}'
+    url = f'http://0.0.0.0:8080/?skill={skill}&location={loc}&yoe={yoe}'
     x = requests.get(url)
     data = pd.DataFrame(dict(x.json()))
     data = data.fillna('Not Available')
