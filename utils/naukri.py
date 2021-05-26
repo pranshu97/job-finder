@@ -8,14 +8,13 @@ def naukri(skill,loc,exp,wd):
 	url_skill = '-'.join(skill.split())
 	url = url + url_skill + '-jobs-in-' + loc + '?experience=' + str(exp)
 	wd.get(url)
-	data = [['Title','Company','ctc','experience','location','Description','skills_required','link']]
+	data = [['Title','Company','CTC','Experience','Location','Description','Required Skills','link']]
 	try:
 	    div = wd.find_element_by_class_name("list")
 	    article = div.find_elements_by_tag_name("article")
 	except:
 	    return pd.DataFrame(columns=data[0])
-	i=0
-	for art in article:
+	for i,art in enumerate(article):
 	    try:
 	        a = art.find_elements_by_tag_name("a")
 	        name = a[0].text
@@ -51,8 +50,7 @@ def naukri(skill,loc,exp,wd):
 	    except:
 	        jd = "Not Available"
 	    data.append([name,company,ctc,experience,location,jd,req_skills,link])
-	    i+=1
-	    if i==10:
+	    if i==15:
 	    	break
 	return pd.DataFrame(data[1:],columns=data[0])
 

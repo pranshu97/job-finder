@@ -7,14 +7,13 @@ def indeed(skill,loc,exp,wd):
 	url_skill = '+'.join(skill.split())
 	url = url + url_skill + '&l=' + loc
 	wd.get(url)
-	data = [['Title','Company','ctc','experience','location','Description','skills_required','link']]
+	data = [['Title','Company','CTC','Experience','Location','Description','Required Skills','link']]
 	try:
 	    container = wd.find_element_by_id("resultsCol")
 	    divs = container.find_elements_by_xpath('div[@class="jobsearch-SerpJobCard unifiedRow row result clickcard"]')
 	except:
 	    return pd.DataFrame(columns=data[0])
-	i=0
-	for div in divs:
+	for i, div in enumerate(divs):
 	    try:
 	        title = div.find_element_by_class_name("title").find_element_by_tag_name("a")
 	        name = title.text
@@ -40,7 +39,6 @@ def indeed(skill,loc,exp,wd):
 	    exp = 'Not Available'
 	    req_skills = 'Not Available'
 	    data.append([name,company,sal,exp,location,jd,req_skills,link])
-	    i+=1
-	    if i==10:
+	    if i==15:
 	        break
 	return pd.DataFrame(data[1:],columns=data[0])

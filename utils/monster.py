@@ -7,14 +7,13 @@ def monster(skill,loc,exp,wd):
 	url_skill = '%20'.join(skill.split())
 	url=url+url_skill+'&locations='+loc+'&experienceRanges='+exp+'~'+exp+'&experience='+exp
 	wd.get(url)
-	data = [['Title','Company','ctc','experience','location','Description','skills_required','link']]
+	data = [['Title','Company','CTC','Experience','Location','Description','Required Skills','link']]
 	try:
 	    container = wd.find_elements_by_xpath('//div[@class="srp-right-part"]/div[@class="srp-left"]/div/div/div')[2]
 	    divs = container.find_elements_by_class_name("card-apply-content")
 	except:
 	    return pd.DataFrame(columns=data[0])
-	i = 0
-	for div in divs:
+	for i, div in enumerate(divs):
 	    try:
 	        title = div.find_element_by_class_name("medium").find_element_by_tag_name("a")
 	        name = title.text
@@ -47,8 +46,7 @@ def monster(skill,loc,exp,wd):
 	    except:
 	        req_skills = 'Not Available'
 	    data.append([name,company,ctc,exp,location,jd,req_skills,link])
-	    i+=1
-	    if i==10:
+	    if i==15:
 	        break
 	return pd.DataFrame(data[1:],columns=data[0])
 

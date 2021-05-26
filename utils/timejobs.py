@@ -18,9 +18,8 @@ def timejobs(skill,loc,exp,wd):
 	    lst = container.find_elements_by_class_name("job-bx")
 	except:
 	    return pd.DataFrame(columns=data[0])
-	data = [['Title','Company','ctc','experience','location','Description','skills_required','link']]
-	i = 0
-	for li in lst:
+	data = [['Title','Company','CTC','Experience','Location','Description','Required Skills','link']]
+	for i,li in enumerate(lst):
 	    try:
 	        title = li.find_element_by_class_name("clearfix").find_element_by_tag_name("a")
 	        name = title.text
@@ -59,7 +58,6 @@ def timejobs(skill,loc,exp,wd):
 	    except:
 	        req_skills = 'Not Available'
 	    data.append([name,company,sal,exp,loc,jd,req_skills,link])
-	    i+=1
-	    if i==10:
+	    if i==15:
 	        break
 	return pd.DataFrame(data[1:],columns=data[0])
