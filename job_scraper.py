@@ -90,7 +90,10 @@ def job_scraper(skill, loc, exp):
 			logging.error(f'Failed to close web driver: {e}')
 		return final_data.to_dict()
 	except Exception as e:
-		wd.close()
+		try:
+			wd.close()
+		except Exception as e1:
+			logging.warning(f'Failed to close web driver: {e1}')
 		# print("\n\n\nFAILED TO RETRIEVE DATA. Chrome Driver Error.")
 		logging.critical(f"FAILED TO RETRIEVE DATA: {e}")
 		return {}
