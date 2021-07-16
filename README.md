@@ -5,4 +5,4 @@ Scrapes top job sites for jobs related to given search parameters and shows resu
  - Frontend hosted on Heroku.
  - Tools used: Streamlit, Selenium, AWS.
 
-https://jobvago.herokuapp.com/
+https://onestopjobs.herokuapp.com/
